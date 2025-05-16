@@ -24,10 +24,6 @@ export class MovieRepository {
     return this.repository.find();
   }
 
-  async findById(id: number): Promise<Movie | null> {
-    return await this.repository.findOneBy({ id });
-  }
-
   async findWinningMovies(): Promise<Movie[]> {
     return this.repository.find({
       where: { winner: true },
@@ -42,5 +38,43 @@ export class MovieRepository {
 
   async clearAll(): Promise<void> {
     await this.repository.clear();
+  }
+
+  async findByFilters(filters: {
+    title?: string;
+    year?: number;
+    studios?: string;
+    producer?: string;
+    winner?: boolean;
+  }): Promise<Movie[]> {
+    const query = this.repository.createQueryBuilder("movie");
+
+    if (filters.title) {
+      query.andWhere("LOWER(movie.title) LIKE :title", {
+        title: `%${filters.title.toLowerCase()}%`,
+      });
+    }
+
+    if (filters.year) {
+      query.andWhere("movie.year = :year", { year: filters.year });
+    }
+
+    if (filters.studios) {
+      query.andWhere("LOWER(movie.studios) LIKE :studios", {
+        studios: `%${filters.studios.toLowerCase()}%`,
+      });
+    }
+
+    if (filters.producer) {
+      query.andWhere("movie.producers LIKE :producer", {
+        producer: `%${filters.producer}%`,
+      });
+    }
+
+    if (typeof filters.winner === "boolean") {
+      query.andWhere("movie.winner = :winner", { winner: filters.winner });
+    }
+
+    return query.getMany();
   }
 }

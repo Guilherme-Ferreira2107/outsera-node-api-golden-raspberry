@@ -48,6 +48,78 @@ export const swaggerDocument = {
         },
       },
     },
+    "/api/movies/search": {
+      get: {
+        summary: "Busca filmes com filtros",
+        description:
+          "Permite buscar filmes por título, ano, estúdio, produtor e status de premiação.",
+        parameters: [
+          {
+            name: "title",
+            in: "query",
+            description: "Título do filme (busca parcial, case-insensitive)",
+            required: false,
+            schema: {
+              type: "string",
+              example: "rambo",
+            },
+          },
+          {
+            name: "year",
+            in: "query",
+            description: "Ano do filme",
+            required: false,
+            schema: {
+              type: "integer",
+              example: 2019,
+            },
+          },
+          {
+            name: "studios",
+            in: "query",
+            description: "Nome do estúdio (busca parcial)",
+            required: false,
+            schema: {
+              type: "string",
+              example: "Lionsgate",
+            },
+          },
+          {
+            name: "producer",
+            in: "query",
+            description: "Nome de um dos produtores (busca exata)",
+            required: false,
+            schema: {
+              type: "string",
+              example: "Les Weldon",
+            },
+          },
+          {
+            name: "winner",
+            in: "query",
+            description: "Filme vencedor (true ou false)",
+            required: false,
+            schema: {
+              type: "boolean",
+              example: false,
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Lista de filmes filtrada",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: { $ref: "#/components/schemas/MovieEntity" },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
     "/health": {
       get: {
         summary: "Health check da aplicação",

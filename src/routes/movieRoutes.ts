@@ -5,7 +5,7 @@ const router = Router();
 const movieController = new MovieController();
 
 router.get("/movies", movieController.getAllMovies);
-router.get("/movies/:id", movieController.getMovieById);
 router.get("/movies/awards/intervals", movieController.getAwardIntervals);
+router.get("/movies/search", movieController.getMovieBySearch);
 
 export default router;

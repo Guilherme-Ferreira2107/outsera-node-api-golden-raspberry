@@ -28,14 +28,26 @@ export class MovieController {
     }
   };
 
-  getMovieById = async (req: Request, res: Response): Promise<void> => {
-    const { id } = req.params;
+  getMovieBySearch = async (req: Request, res: Response) => {
+    console.log("getMovieBySearch");
     try {
-      const movie = await this.service.getMovieById(Number(id));
-      res.json(movie);
-    } catch (error: any) {
-      console.error("Erro ao atualizar filme:", error);
-      res.status(error.statusCode || 400).json({ error: error.message });
+      const { title, year, studios, producer, winner } = req.query;
+
+      const filters = {
+        title: title as string,
+        year: year ? parseInt(year as string, 10) : undefined,
+        studios: studios as string,
+        producer: producer as string,
+        winner: winner !== undefined ? winner === "true" : undefined,
+      };
+
+      console.log("filters: ", filters);
+
+      const movies = await this.service.getMoviesByFilters(filters);
+      return res.json(movies);
+    } catch (error) {
+      console.error("Erro ao buscar filmes:", error);
+      return res.status(500).json({ error: "Erro interno ao buscar filmes" });
     }
   };
 }
