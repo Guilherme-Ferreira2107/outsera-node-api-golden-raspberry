@@ -24,6 +24,10 @@ export class MovieRepository {
     return this.repository.find();
   }
 
+  async findById(id: number): Promise<Movie | null> {
+    return await this.repository.findOneBy({ id });
+  }
+
   async findWinningMovies(): Promise<Movie[]> {
     return this.repository.find({
       where: { winner: true },

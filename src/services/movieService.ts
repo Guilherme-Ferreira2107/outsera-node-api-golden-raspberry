@@ -99,4 +99,15 @@ export class MovieService {
       max: maxIntervals,
     };
   }
+
+  async getMovieById(id: number): Promise<Movie> {
+    const movie = await this.repository.findById(id);
+    if (!movie) {
+      const error: any = new Error("Filme não encontrado.");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    return movie;
+  }
 }
