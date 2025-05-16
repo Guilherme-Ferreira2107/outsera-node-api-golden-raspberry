@@ -1,8 +1,8 @@
 import request from "supertest";
-import { App } from "../src/app";
-import { AppDataSource } from "../src/config/database";
-import { MovieRepository } from "../src/repositories/movieRepository";
-import { IMovieCSV } from "../src/types";
+import { App } from "../../src/app";
+import { AppDataSource } from "../../src/config/database";
+import { MovieRepository } from "../../src/repositories/movieRepository";
+import { IMovieCSV } from "../../src/types";
 
 jest.mock("../src/utils/csvParser", () => {
   const MOCK_CSV: IMovieCSV[] = [

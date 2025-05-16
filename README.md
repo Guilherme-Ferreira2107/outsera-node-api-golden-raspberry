@@ -1,47 +1,84 @@
-Golden Raspberry API
-Uma API RESTful que permite consultar dados sobre os indicados e vencedores da categoria Pior Filme do Golden Raspberry Awards (ou "Framboesa de Ouro", em português).
+# 🎮 Golden Raspberry API
 
-Tecnologias Utilizadas
-Node.js
-TypeScript
-Express
-TypeORM
-SQLite (banco de dados em memória)
-Jest e Supertest (para testes de integração)
-Pré-requisitos
-Node.js (versão 14 ou superior)
-npm ou yarn
-Estrutura do Projeto
+Uma API RESTful para consultar dados sobre indicados e vencedores da categoria **Pior Filme** do **Golden Raspberry Awards** (ou *Framboesa de Ouro*).
+
+---
+
+## 📚 Sumário
+
+* [Tecnologias Utilizadas](#tecnologias-utilizadas)
+* [Pré-requisitos](#pré-requisitos)
+* [Estrutura do Projeto](#estrutura-do-projeto)
+* [Como Executar o Projeto](#como-executar-o-projeto)
+* [Rotas da API](#rotas-da-api)
+* [Execução dos Testes](#execução-dos-testes)
+* [Sobre a Implementação](#sobre-a-implementação)
+* [Funcionalidades](#funcionalidades)
+* [Autor](#autor)
+* [Licença](#licença)
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+* **Node.js**
+* **TypeScript**
+* **Express**
+* **TypeORM**
+* **SQLite** (banco de dados em memória)
+* **Jest** e **Supertest** (para testes de integração)
+
+---
+
+## ✅ Pré-requisitos
+
+* Node.js **v14 ou superior**
+* Gerenciador de pacotes: **npm** ou **yarn**
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
 golden-raspberry-api/
-├── src/                       # Código fonte
-│   ├── config/                # Configurações do aplicativo
-│   ├── controllers/           # Controladores para as rotas
-│   ├── models/                # Definição dos modelos/entidades
-│   ├── repositories/          # Operações de banco de dados
-│   ├── services/              # Lógica de negócios
-│   ├── routes/                # Definição das rotas
-│   ├── utils/                 # Utilitários
-│   ├── types/                 # Definições de tipos TypeScript
-│   ├── app.ts                 # Configuração do aplicativo Express
-│   └── server.ts              # Ponto de entrada da aplicação
-├── tests/                     # Testes
-│   └── integration/           # Testes de integração
-├── resources/                 # Arquivos de recursos
-│   └── movielist.csv          # Arquivo CSV com dados dos filmes
-├── package.json               # Dependências do projeto
-├── tsconfig.json              # Configuração do TypeScript
-├── jest.config.js             # Configuração do Jest
-└── README.md                  # Documentação
-Como executar o projeto
-Instalação das dependências
-bash
+├── src/
+│   ├── config/           # Configurações do aplicativo
+│   ├── controllers/      # Controladores das rotas
+│   ├── models/           # Modelos/entidades
+│   ├── repositories/     # Operações com o banco de dados
+│   ├── services/         # Regras de negócio
+│   ├── routes/           # Definição das rotas
+│   ├── utils/            # Funções utilitárias
+│   ├── types/            # Tipagens TypeScript
+│   ├── app.ts            # Configuração principal do Express
+│   └── server.ts         # Ponto de entrada da aplicação
+├── tests/
+│   └── integration/      # Testes de integração
+├── data/
+│   └── movielist.csv     # Dados de filmes em CSV
+├── package.json          # Dependências do projeto
+├── tsconfig.json         # Configuração do TypeScript
+├── jest.config.js        # Configuração do Jest
+└── README.md             # Documentação
+```
+
+---
+
+## ⚙️ Como Executar o Projeto
+
+### 📦 Instalação das dependências
+
+```bash
 # Usando npm
 npm install
 
-# Usando yarn
+# Ou usando yarn
 yarn install
-Execução do projeto
-bash
+```
+
+### ▶️ Execução
+
+```bash
 # Modo de desenvolvimento
 npm run dev
 # ou
@@ -53,16 +90,30 @@ npm start
 # ou
 yarn build
 yarn start
-A API estará disponível em http://localhost:3000.
+```
 
-Rotas da API
-Obter todos os filmes
+A API estará disponível em:
+🔗 **[http://localhost:3000](http://localhost:3000)**
+
+---
+
+## 🔌 Rotas da API
+
+### 📃 Listar todos os filmes
+
+```
 GET /api/movies
-Obter o intervalo entre prêmios para produtores
-GET /api/movies/awards/intervals
-Formato de resposta:
+```
 
-json
+### 🏆 Intervalo entre prêmios de produtores
+
+```
+GET /api/movies/awards/intervals
+```
+
+**Resposta:**
+
+```json
 {
   "min": [
     {
@@ -81,30 +132,58 @@ json
     }
   ]
 }
-Health Check
+```
+
+### 🧼 Health Check
+
+```
 GET /health
-Execução dos Testes
-bash
+```
+
+---
+
+## 🧪 Execução dos Testes
+
+```bash
+# Com npm
 npm test
-# ou
+
+# Com yarn
 yarn test
-Sobre a implementação
-Esta API foi desenvolvida seguindo o nível 2 de maturidade de Richardson:
+```
 
-Recursos identificáveis: Cada recurso é identificado por uma URI específica
-Métodos HTTP: Utilização correta dos métodos HTTP (GET)
-Representações de recursos: Os recursos são representados em formato JSON
-Detalhes da implementação
-A aplicação carrega os dados do arquivo CSV durante a inicialização
-Os dados são armazenados em um banco de dados SQLite em memória
-Os testes de integração garantem que a API retorna os dados conforme esperado
-Foi implementada uma lógica para calcular o intervalo mínimo e máximo entre os prêmios dos produtores
-Funcionalidades
-Lista completa de filmes indicados ao Golden Raspberry Awards
-Cálculo dos produtores com maior e menor intervalo entre dois prêmios consecutivos
-Autor
-[Seu Nome]
+---
 
-Licença
-Este projeto está licenciado sob a licença MIT.
+## 🧐 Sobre a Implementação
 
+Esta API segue o **nível 2 da maturidade de Richardson**, com:
+
+* **Recursos identificáveis** via URIs
+* **Métodos HTTP** adequados (GET)
+* **Representações** dos recursos em formato JSON
+
+### 🔹 Detalhes técnicos:
+
+* Carregamento de dados a partir de um arquivo **CSV** na inicialização
+* Uso de **SQLite em memória** como banco de dados
+* Testes de integração asseguram a consistência das respostas
+* Lógica de cálculo para produtores com **menor e maior intervalo entre prêmios**
+
+---
+
+## ✅ Funcionalidades
+
+* 📌 Listagem de todos os filmes indicados ao Golden Raspberry Awards
+* ⏱️ Cálculo de produtores com **menor e maior intervalo** entre prêmios consecutivos
+
+---
+
+## 👤 Autor
+
+\Guilherme Santos
+
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a **[MIT License](LICENSE)**.

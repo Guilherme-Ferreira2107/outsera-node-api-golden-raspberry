@@ -31,7 +31,7 @@ export const swaggerDocument = {
         },
       },
     },
-    "/api/producers/interval": {
+    "/api/movies/awards/intervals": {
       get: {
         summary: "Produtores com menor e maior intervalo entre vitórias",
         responses: {
@@ -99,6 +99,7 @@ export const swaggerDocument = {
             items: { $ref: "#/components/schemas/ProducerInterval" },
           },
         },
+        required: ["min", "max"],
       },
       ProducerWins: {
         type: "object",
