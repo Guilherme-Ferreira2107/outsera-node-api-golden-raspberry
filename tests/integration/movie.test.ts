@@ -2,63 +2,6 @@ import request from "supertest";
 import { App } from "../../src/app";
 import { AppDataSource } from "../../src/config/database";
 import { MovieRepository } from "../../src/repositories/movieRepository";
-import { IMovieCSV } from "../../src/types";
-
-jest.mock("../src/utils/csvParser", () => {
-  const MOCK_CSV: IMovieCSV[] = [
-    {
-      year: "2000",
-      title: "Test Movie 1",
-      studios: "Studio 1",
-      producers: "Producer A",
-      winner: "yes",
-    },
-    {
-      year: "2005",
-      title: "Test Movie 2",
-      studios: "Studio 2",
-      producers: "Producer A",
-      winner: "yes",
-    },
-    {
-      year: "2006",
-      title: "Test Movie 3",
-      studios: "Studio 3",
-      producers: "Producer B",
-      winner: "yes",
-    },
-    {
-      year: "2010",
-      title: "Test Movie 4",
-      studios: "Studio 4",
-      producers: "Producer B",
-      winner: "yes",
-    },
-    {
-      year: "2001",
-      title: "Test Movie 5",
-      studios: "Studio 5",
-      producers: "Producer C",
-      winner: "yes",
-    },
-    {
-      year: "2003",
-      title: "Test Movie 6",
-      studios: "Studio 6",
-      producers: "Producer C",
-      winner: "yes",
-    },
-  ];
-  return {
-    parseCSV: jest.fn().mockResolvedValue(MOCK_CSV),
-    processProducers: (producersText: string): string[] => {
-      return producersText
-        .split(/,|\sand\s|&/)
-        .map((p) => p.trim())
-        .filter((p) => p.length > 0);
-    },
-  };
-});
 
 describe("API Integration Tests", () => {
   let app: App;
@@ -76,11 +19,13 @@ describe("API Integration Tests", () => {
 
   describe("GET /api/movies", () => {
     it("should return all movies", async () => {
+
       const response = await request(app.app).get("/api/movies");
 
+      console.log('response: ', response.body[0], response.body.length);
+
       expect(response.status).toBe(200);
-      expect(Array.isArray(response.body)).toBe(true);
-      expect(response.body.length).toBe(6);
+      expect(response.body.length).toBe(206);
     });
   });
 
@@ -96,19 +41,19 @@ describe("API Integration Tests", () => {
 
       expect(response.body.min).toEqual([
         {
-          producer: "Producer C",
-          interval: 2,
-          previousWin: 2001,
-          followingWin: 2003,
+          producer: "Joel Silver",
+          interval: 1,
+          previousWin: 1990,
+          followingWin: 1991
         },
       ]);
 
       expect(response.body.max).toEqual([
         {
-          producer: "Producer A",
-          interval: 5,
-          previousWin: 2000,
-          followingWin: 2005,
+          producer: "Matthew Vaughn",
+          interval: 13,
+          previousWin: 2002,
+          followingWin: 2015
         },
       ]);
     });

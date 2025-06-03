@@ -117,18 +117,18 @@ GET /api/movies/awards/intervals
 {
   "min": [
     {
-      "producer": "Producer 1",
+      "producer": "Joel Silver",
       "interval": 1,
-      "previousWin": 2008,
-      "followingWin": 2009
+      "previousWin": 1990,
+      "followingWin": 1991
     }
   ],
   "max": [
     {
-      "producer": "Producer 2",
-      "interval": 99,
-      "previousWin": 1900,
-      "followingWin": 1999
+      "producer": "Matthew Vaughn",
+      "interval": 13,
+      "previousWin": 2002,
+      "followingWin": 2015
     }
   ]
 }
