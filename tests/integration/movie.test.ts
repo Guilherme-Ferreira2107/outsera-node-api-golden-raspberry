@@ -22,8 +22,6 @@ describe("API Integration Tests", () => {
 
       const response = await request(app.app).get("/api/movies");
 
-      console.log('response: ', response.body[0], response.body.length);
-
       expect(response.status).toBe(200);
       expect(response.body.length).toBe(206);
     });

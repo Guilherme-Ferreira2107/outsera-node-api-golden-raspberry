@@ -29,7 +29,6 @@ export class MovieController {
   };
 
   getMovieBySearch = async (req: Request, res: Response) => {
-    console.log("getMovieBySearch");
     try {
       const { title, year, studios, producer, winner } = req.query;
 
@@ -40,8 +39,6 @@ export class MovieController {
         producer: producer as string,
         winner: winner !== undefined ? winner === "true" : undefined,
       };
-
-      console.log("filters: ", filters);
 
       const movies = await this.service.getMoviesByFilters(filters);
       return res.json(movies);
